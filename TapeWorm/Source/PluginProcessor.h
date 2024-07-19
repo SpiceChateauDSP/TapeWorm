@@ -59,6 +59,9 @@ public:
 #endif
 
 private:
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
+    juce::AudioProcessorValueTreeState apvts {*this, nullptr, "Parameters", createParameters()};
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TapeWormAudioProcessor)
 };

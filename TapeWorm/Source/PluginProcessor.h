@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include <melatonin_perfetto/melatonin_perfetto.h>
+#include "Engine.h"
 
 //==============================================================================
 /**
@@ -61,6 +62,8 @@ public:
 private:
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
     juce::AudioProcessorValueTreeState apvts {*this, nullptr, "Parameters", createParameters()};
+    
+    Engine engine {apvts};
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TapeWormAudioProcessor)

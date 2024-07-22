@@ -87,13 +87,14 @@ void TapeWormAudioProcessor::changeProgramName (int index, const juce::String& n
 
 //==============================================================================
 void TapeWormAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock) {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    auto numChannels = getMainBusNumInputChannels() > getMainBusNumOutputChannels() ? getMainBusNumInputChannels() :
+                                                                                      getMainBusNumOutputChannels();
+    
+    engine.prepare (numChannels, samplesPerBlock, sampleRate);
 }
 
 void TapeWormAudioProcessor::releaseResources() {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    engine.reset();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -131,9 +132,7 @@ void TapeWormAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    for (int channel = 0; channel < totalNumInputChannels; ++channel) {
-        auto* channelData = buffer.getWritePointer (channel);
-    }
+    engine.processBuffer (buffer);
 }
 
 //==============================================================================
@@ -142,7 +141,8 @@ bool TapeWormAudioProcessor::hasEditor() const {
 }
 
 juce::AudioProcessorEditor* TapeWormAudioProcessor::createEditor() {
-    return new TapeWormAudioProcessorEditor (*this);
+//    return new TapeWormAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================
@@ -168,8 +168,18 @@ juce::AudioProcessorValueTreeState::ParameterLayout TapeWormAudioProcessor::crea
 
     const int versionHint_0 = 1;
     
-    parameters.add (std::make_unique<juce::AudioParameterBool>(juce::ParameterID {"BYPASS", versionHint_0}, "Bypass", false));
+    juce::NormalisableRange<float> range (0.f, 1.f, 0.001f);
+    range.setSkewForCentre (0.30f);
+    auto attributes_float = juce::AudioParameterFloatAttributes()
+                            .withStringFromValueFunction ([] (float x, int i) {
+                                return (juce::String) std::round (-7.142857142856996 * x * x + 2.521428571428570e02 * x + 5) + " Hz"; });
     
+    parameters.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID {"Cutoff", versionHint_0},
+                                                                 "Cutoff",
+                                                                 range,
+                                                                 0.f,
+                                                                 attributes_float));
+
     return parameters;
 }
 

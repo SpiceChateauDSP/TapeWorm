@@ -18,6 +18,10 @@
       <GROUP id="{CCDF27A8-FF23-42E5-2040-18560BA59A2A}" name="DSP">
         <FILE id="iEH9SY" name="Engine.cpp" compile="1" resource="0" file="Source/Engine.cpp"/>
         <FILE id="QO8TT8" name="Engine.h" compile="0" resource="0" file="Source/Engine.h"/>
+        <FILE id="EApE4w" name="Inductor First Order.cpp" compile="1" resource="0"
+              file="Source/Inductor First Order.cpp"/>
+        <FILE id="yVU2z9" name="Inductor First Order.h" compile="0" resource="0"
+              file="Source/Inductor First Order.h"/>
       </GROUP>
       <FILE id="BgZL5A" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

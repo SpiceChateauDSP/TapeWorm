@@ -168,16 +168,16 @@ juce::AudioProcessorValueTreeState::ParameterLayout TapeWormAudioProcessor::crea
 
     const int versionHint_0 = 1;
     
-    juce::NormalisableRange<float> range (0.f, 1.f, 0.001f);
+    juce::NormalisableRange<float> range (0.f, 1.f, 0.00001f);
     range.setSkewForCentre (0.30f);
     auto attributes_float = juce::AudioParameterFloatAttributes()
                             .withStringFromValueFunction ([] (float x, int i) {
-                                return (juce::String) std::round (-7.142857142856996 * x * x + 2.521428571428570e02 * x + 5) + " Hz"; });
+                                return (juce::String) std::round (x * 100) + "%"; });
     
-    parameters.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID {"Cutoff", versionHint_0},
-                                                                 "Cutoff",
+    parameters.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID {"Damping", versionHint_0},
+                                                                 "Damping",
                                                                  range,
-                                                                 0.f,
+                                                                 1.f,
                                                                  attributes_float));
 
     return parameters;

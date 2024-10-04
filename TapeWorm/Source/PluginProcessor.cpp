@@ -90,11 +90,11 @@ void TapeWormAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     auto numChannels = getMainBusNumInputChannels() > getMainBusNumOutputChannels() ? getMainBusNumInputChannels() :
                                                                                       getMainBusNumOutputChannels();
     
-    engine.prepare (numChannels, samplesPerBlock, sampleRate);
+//    engine.prepare (sampleRate, samplesPerBlock, numChannels);
 }
 
 void TapeWormAudioProcessor::releaseResources() {
-    engine.reset();
+//    engine.reset();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -132,7 +132,7 @@ void TapeWormAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    engine.processBuffer (buffer);
+//    engine.processBuffer (buffer);
 }
 
 //==============================================================================

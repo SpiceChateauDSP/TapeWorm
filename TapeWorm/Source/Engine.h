@@ -55,15 +55,15 @@ public:
     };
     ~Engine () {};
     
-//    double processSample (int channel, double sample) override;
+    double processSample (int channel, double sample) override;
     void fillParameters () override {
         gen_vars.parameters.add (&damping);
     };
 
 private:
-//    void updateParameters_sample () override;
+    void updateParameters_sample () override;
     
-    HackAudio::Parameter damping { "Damping" };
+    HackAudio::Parameter damping { "Damping", [&] (float n) { return n; }};
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Engine);
 };

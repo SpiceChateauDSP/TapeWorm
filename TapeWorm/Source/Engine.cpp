@@ -48,20 +48,20 @@
 
 
 
-//double Engine::processSample (int channel, double sample) {
-//    updateParameters_sample ();
-//    smoothParameters (channel);
-//    
+double Engine::processSample (int channel, double sample) {
+    updateParameters_sample ();
+    smoothParameters (channel);
+    
 //    auto sample_hpf = dcBlocker.processSample (channel, sample);
 //    auto output = dampingFilter.processSample (channel, sample_hpf);
-//    
-//    return sample;
-//}
-//
-//void Engine::updateParameters_sample () {
-//    damping.update();
-//    
-//    /* Nothing here should change the latency, but this is how it might look if you need it.
-//     The parent class should check for latencyFlag, and call getLatency() if the flag is true */
-//    gen_vars.latencyFlag = (gen_vars.cLatency != gen_vars.mLatency);
-//}
+    
+    return sample;
+}
+
+void Engine::updateParameters_sample () {
+    damping.update();
+    
+    /* Nothing here should change the latency, but this is how it might look if you need it.
+     The parent class should check for latencyFlag, and call getLatency() if the flag is true */
+    gen_vars.latencyFlag = (gen_vars.cLatency != gen_vars.mLatency);
+}

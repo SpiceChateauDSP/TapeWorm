@@ -147,40 +147,11 @@ juce::AudioProcessorEditor* TapeWormAudioProcessor::createEditor() {
 
 //==============================================================================
 void TapeWormAudioProcessor::getStateInformation (juce::MemoryBlock& destData) {
-    auto currentState = apvts.copyState();
-
-    std::unique_ptr<juce::XmlElement> xml (currentState.createXml());
-    copyXmlToBinary (*xml, destData);
+    state.getState (destData);
 }
 
 void TapeWormAudioProcessor::setStateInformation (const void* data, int sizeInBytes) {
-    std::unique_ptr<juce::XmlElement> xml (getXmlFromBinary (data, sizeInBytes));
-
-    if (xml && xml->hasTagName (apvts.state.getType())) {
-        juce::ValueTree newTree = juce::ValueTree::fromXml (*xml);
-        
-        apvts.replaceState (newTree);
-    }
-}
-
-juce::AudioProcessorValueTreeState::ParameterLayout TapeWormAudioProcessor::createParameters() {
-    juce::AudioProcessorValueTreeState::ParameterLayout parameters;
-
-    const int versionHint_0 = 1;
-    
-    juce::NormalisableRange<float> range (0.f, 1.f, 0.00001f);
-    range.setSkewForCentre (0.30f);
-    auto attributes_float = juce::AudioParameterFloatAttributes()
-                            .withStringFromValueFunction ([] (float x, int i) {
-                                return (juce::String) std::round (x * 100) + "%"; });
-    
-    parameters.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID {"Damping", versionHint_0},
-                                                                 "Damping",
-                                                                 range,
-                                                                 1.f,
-                                                                 attributes_float));
-
-    return parameters;
+    state.setState (data, sizeInBytes);
 }
 
 //==============================================================================

@@ -10,7 +10,9 @@
       <FILE id="X2IbJ7" name="perfetto.h" compile="0" resource="0" file="../perfetto/sdk/perfetto.h"/>
     </GROUP>
     <GROUP id="{EDB93C4E-487B-722B-7FB9-45333E33BA4D}" name="Source">
-      <GROUP id="{8D49FF36-5E35-91B0-CDC1-B89E8AA61FFE}" name="Utility"/>
+      <GROUP id="{8D49FF36-5E35-91B0-CDC1-B89E8AA61FFE}" name="Utility">
+        <FILE id="X7yzJh" name="State.h" compile="0" resource="0" file="Source/State.h"/>
+      </GROUP>
       <GROUP id="{8F71322D-BDEB-F3C4-3543-AB9C1EFEDB73}" name="GUI">
         <FILE id="voRmd3" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
         <FILE id="e7kC9L" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
@@ -33,6 +35,7 @@
     </GROUP>
   </MAINGROUP>
   <MODULES>
+    <MODULE id="hackUtility" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
@@ -71,6 +74,7 @@
         <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
         <MODULEPATH id="melatonin_perfetto" path="../melatonin_perfetto"/>
         <MODULEPATH id="juce_dsp" path="../JUCE/modules"/>
+        <MODULEPATH id="hackUtility" path="../../TapeWorm"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>

@@ -63,7 +63,7 @@ public:
 private:
     void updateParameters_sample () override;
     
-    HackAudio::Parameter damping { "Damping", [&] (float n) { return n; }};
+    HackAudio::Parameter damping { "Damping" };
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Engine);
 };

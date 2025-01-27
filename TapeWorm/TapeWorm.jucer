@@ -18,6 +18,7 @@
         <FILE id="e7kC9L" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
       </GROUP>
       <GROUP id="{CCDF27A8-FF23-42E5-2040-18560BA59A2A}" name="DSP">
+        <FILE id="yYcZg2" name="CubicDelay.h" compile="0" resource="0" file="Source/CubicDelay.h"/>
         <FILE id="iEH9SY" name="Engine.cpp" compile="1" resource="0" file="Source/Engine.cpp"/>
         <FILE id="QO8TT8" name="Engine.h" compile="0" resource="0" file="Source/Engine.h"/>
         <FILE id="EApE4w" name="Inductor First Order.cpp" compile="1" resource="0"

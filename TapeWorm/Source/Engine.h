@@ -10,60 +10,64 @@
 
 #pragma once
 #include <JuceHeader.h>
-//#include "Inductor First Order.h"
+#include "Inductor First Order.h"
+#include "CubicDelay.h"
 
-//class Engine {
-//public:
-//    Engine (juce::AudioProcessorValueTreeState& );
-//    ~Engine () {};
-//    
-//    void prepare (int new_numChannels, int new_bufferSize, double new_sampleRate);
-//    void reset ();
-//    
-//    void processBuffer (juce::AudioBuffer<float>& buffer);
-//    void processBlock (juce::dsp::AudioBlock<float> block);
-//    double processSample (int channel, double sample);
-//    std::pair<double, double> processSample_stereo (std::pair<double, double> input);
-//    
-//    void updateParameters_sample (bool forceUpdate = false);
-//    void updateParameters_buffer (bool forceUpdate = false);
-//    
-//    void smoothParameters (int channel);
-//    
-//private:
-//    juce::AudioProcessorValueTreeState& apvts;
-//    
-//    Inductor_FirstOrder dcBlocker {apvts, HPF, false};
-//    Inductor_FirstOrder dampingFilter {apvts, LPF, true};
-//    
-//    double Fs = 48000;
-//    double Ts = 1 / Fs;
-//    int numChannels = 2;
-//    int bufferSize = 128;
-//    
-//    float smoothTime_seconds = 0.1f; // 100 ms
-//    double smooth_alpha = std::exp (-1 * std::log (9) / (Fs * smoothTime_seconds));
-//    
-//    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Engine);
-//};
-
-class Engine : public HackAudio::GenericProcessor {
+class Engine {
 public:
-    Engine (juce::AudioProcessorValueTreeState* vts) {
-        fillParameters ();
-        connectValueTreeParameters (vts);
-    };
+    Engine (juce::AudioProcessorValueTreeState& vts);
     ~Engine () {};
     
-    double processSample (int channel, double sample) override;
-    void fillParameters () override {
-        gen_vars.parameters.add (&damping);
+    void prepare (const float new_sampleRate, const int new_bufferSize, const int new_numChannels);
+    void reset ();
+    
+    /* Processing */
+    void processBuffer_inPlace (juce::AudioBuffer<float>& buffer);
+    inline double processSample (const int channelIndex, const double sample);
+    
+    /* Latency */
+    const bool checkLatency () { return latencyFlag; };
+    const int getLatencySamples () {
+        mLatency = cLatency;
+        latencyFlag = false;
+        return cLatency;
     };
 
 private:
-    void updateParameters_sample () override;
+    /* Process Variables */
+    float sampleRate = 48000.f;
+    double samplePeriod = 1 / sampleRate;
+    int bufferSize = 128;
+    int numChannels = 2;
     
-    HackAudio::Parameter damping { "Damping" };
+    /* Latency */
+    int cLatency = 0, mLatency = 0;
+    bool latencyFlag = false;
+    
+    /* Parameters */
+    juce::AudioProcessorValueTreeState& apvts;
+    void updateParameters_sample ();
+    void updateParameters_buffer ();
+    void updateParameters_forced ();
+    void smoothParameters (const int channelIndex);
+    
+    struct {
+        std::atomic<float>* damping = nullptr;
+    } tree;
+    
+    struct {
+        float damping = -1.f;
+    } local;
+
+    double smoothTime_seconds = 0.1f; // 100 ms smoothing
+    double smooth_alpha = 1.f;
+    
+    /* Filters */
+    Inductor_FirstOrder dcBlocker { Inductor_FirstOrder::FilterType::HPF };
+    Inductor_FirstOrder damping { Inductor_FirstOrder::FilterType::LPF };
+    
+    /* Delay */
+    CubicDelay delay;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Engine);
 };

@@ -9,7 +9,6 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include <melatonin_perfetto/melatonin_perfetto.h>
 #include "State.h"
 #include "Engine.h"
 
@@ -55,10 +54,6 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-    
-#if PERFETTO
-    std::unique_ptr<perfetto::TracingSession> tracingSession;
-#endif
 
 private:
     State state { "TapeWorm", *this };

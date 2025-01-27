@@ -1,9 +1,6 @@
 [submodule "JUCE"]
 	path = JUCE
 	url = https://github.com/juce-framework/JUCE.git
-[submodule "melatonin_perfetto"]
-	path = melatonin_perfetto
-	url = https://github.com/sudara/melatonin_perfetto.git
 [submodule "HackUtility"]
 	path = HackUtility
 	url = https://github.com/SpiceChateauDSP/HackUtility.git

@@ -5,10 +5,6 @@
               defines="PERFETTO=0" version="0.0.1" companyName="Spice Chateau DSP"
               pluginManufacturerCode="Spch" pluginCode="Tape" pluginVST3Category="Modulation">
   <MAINGROUP id="wehzg8" name="TapeWorm">
-    <GROUP id="{45761BEB-951C-6F88-C896-A184127709F0}" name="Perfetto">
-      <FILE id="Uw3sXu" name="perfetto.cc" compile="1" resource="0" file="../perfetto/sdk/perfetto.cc"/>
-      <FILE id="X2IbJ7" name="perfetto.h" compile="0" resource="0" file="../perfetto/sdk/perfetto.h"/>
-    </GROUP>
     <GROUP id="{EDB93C4E-487B-722B-7FB9-45333E33BA4D}" name="Source">
       <GROUP id="{8D49FF36-5E35-91B0-CDC1-B89E8AA61FFE}" name="Utility">
         <FILE id="X7yzJh" name="State.h" compile="0" resource="0" file="Source/State.h"/>
@@ -51,7 +47,6 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="melatonin_perfetto" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
@@ -73,7 +68,6 @@
         <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
-        <MODULEPATH id="melatonin_perfetto" path="../melatonin_perfetto"/>
         <MODULEPATH id="juce_dsp" path="../JUCE/modules"/>
         <MODULEPATH id="hackUtility" path="../../TapeWorm"/>
       </MODULEPATHS>

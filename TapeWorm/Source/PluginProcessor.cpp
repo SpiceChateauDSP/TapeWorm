@@ -22,15 +22,9 @@ TapeWormAudioProcessor::TapeWormAudioProcessor()
                        )
 #endif
 {
-#if PERFETTO
-    MelatoninPerfetto::get().beginSession();
-#endif
 }
 
 TapeWormAudioProcessor::~TapeWormAudioProcessor() {
-#if PERFETTO
-    MelatoninPerfetto::get().endSession();
-#endif
 }
 
 //==============================================================================
@@ -123,8 +117,6 @@ bool TapeWormAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 #endif
 
 void TapeWormAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages) {
-    TRACE_DSP();
-    
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();

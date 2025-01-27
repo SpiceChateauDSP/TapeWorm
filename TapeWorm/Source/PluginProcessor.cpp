@@ -87,14 +87,14 @@ void TapeWormAudioProcessor::changeProgramName (int index, const juce::String& n
 
 //==============================================================================
 void TapeWormAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock) {
-    auto numChannels = getMainBusNumInputChannels() > getMainBusNumOutputChannels() ? getMainBusNumInputChannels() :
-                                                                                      getMainBusNumOutputChannels();
+    auto numChannels = getMainBusNumInputChannels() > getMainBusNumOutputChannels() ? getMainBusNumInputChannels()
+                                                                                    : getMainBusNumOutputChannels();
     
-//    engine.prepare (sampleRate, samplesPerBlock, numChannels);
+    engine.prepare (sampleRate, samplesPerBlock, numChannels);
 }
 
 void TapeWormAudioProcessor::releaseResources() {
-//    engine.reset();
+    engine.reset();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -131,8 +131,11 @@ void TapeWormAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
+    
+    if (engine.checkLatency())
+        setLatencySamples (engine.getLatencySamples());
 
-//    engine.processBuffer (buffer);
+    engine.processBuffer_inPlace (buffer);
 }
 
 //==============================================================================

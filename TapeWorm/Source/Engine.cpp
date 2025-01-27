@@ -30,7 +30,18 @@ void Engine::prepare (const float new_sampleRate, const int new_bufferSize, cons
     /* Processing Classes */
     dcBlocker.prepare (sampleRate, bufferSize);
     damping.prepare (sampleRate, bufferSize);
-    delay.setParameters (sampleRate, 2);
+    
+    delay.setSize (2 * sampleRate);
+    delay.setDelayTime (0.003f);
+    delay.setModRefreshRate (std::round (sampleRate / 50));
+    delay.setModRate (5.f);
+    delay.setModDepth (0.5f);
+    delay.setModShape (0.f);
+    delay.setModStereo (true);
+    delay.setModInverted (false);
+    delay.setRandomRefreshRate (std::round (sampleRate));
+    delay.setRandomDepth (0.f);
+    delay.setRandomSmooth (1.f);
     
     dcBlocker.setPotentiometer (1.f);
     damping.setPotentiometer (1.f);

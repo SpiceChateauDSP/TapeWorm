@@ -40,6 +40,8 @@ public:
         return parameters;
     }
     
+    juce::AudioProcessorValueTreeState& getAPVTS () { return *apvts; };
+    
 private:
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (State);

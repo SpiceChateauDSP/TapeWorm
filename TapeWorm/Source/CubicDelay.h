@@ -101,7 +101,8 @@ public:
         auto r1 = writeIndex[channelIndex] - iDel + 1;
         if (r1 < 0)
             r1 = size + r1;
-        else if (r1 > size - 1)
+        
+        if (r1 > size - 1)
             r1 = r1 - size;
         
         auto r2 = writeIndex[channelIndex] - iDel;

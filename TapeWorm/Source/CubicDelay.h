@@ -121,17 +121,22 @@ public:
     }
     
     inline double interpolate (std::array<int, 4> readPointers, const int channelIndex, const double frac) {
-        int r1 = readPointers[0];
-        int r2 = readPointers[1];
-        int r3 = readPointers[2];
-        int r4 = readPointers[3];
+        const int r0 = readPointers[0];
+        const int r1 = readPointers[1];
+        const int r2 = readPointers[2];
+        const int r3 = readPointers[3];
         
-        double frac2 = frac * frac;
+        const double y0 = delayLine[channelIndex][r0];
+        const double y1 = delayLine[channelIndex][r1];
+        const double y2 = delayLine[channelIndex][r2];
+        const double y3 = delayLine[channelIndex][r3];
         
-        double a0 = delayLine[channelIndex][r4] - delayLine[channelIndex][r3] - delayLine[channelIndex][r1] + delayLine[channelIndex][r2];
-        double a1 = delayLine[channelIndex][r1] - delayLine[channelIndex][r2] - a0;
-        double a2 = delayLine[channelIndex][r3] - delayLine[channelIndex][r1];
-        double a3 = delayLine[channelIndex][r2];
+        const double frac2 = frac * frac;
+        
+        const double a0 = -0.5f * y0 + 1.5f * y1 - 1.5f * y2 + 0.5f * y3;
+        const double a1 = y0 - 2.5f * y1 + 2.f * y2 - 0.5f * y3;
+        const double a2 = -0.5f * y0 + 0.5f * y2;
+        const double a3 = y1;
         
         return (a0 * frac * frac2 + a1 * frac2 + a2 * frac + a3);
     }

@@ -72,21 +72,19 @@ public:
         positionSmoothed[channelIndex] = position_alpha * (positionSmoothed[channelIndex] - position[channelIndex])
             + position[channelIndex];
         
-        return positionSmoothed[channelIndex];
-//
-//        /* Check if necessary to update random */
-//        countR[channelIndex]++;
-//        if (countR[channelIndex] > MAXCOUNT_R - 1) {
-//            countR[channelIndex] = 0;
-//            
-//            randomPosition[channelIndex] = amplitudeR_smooth[channelIndex] * 2.f * (random.nextDouble() - 1.f);
-//        }
-//        
-//        /* Smooth random */
-//        randomSmoothed[channelIndex] = random_alpha * (randomSmoothed[channelIndex] - randomPosition[channelIndex])
-//            + randomPosition[channelIndex];
-//        
-//        return std::clamp (positionSmoothed[channelIndex] + randomSmoothed[channelIndex], (double) 1, (double) (size - 3));
+        /* Check if necessary to update random */
+        countR[channelIndex]++;
+        if (countR[channelIndex] > MAXCOUNT_R - 1) {
+            countR[channelIndex] = 0;
+            
+            randomPosition[channelIndex] = amplitudeR_smooth[channelIndex] * 2.f * (random.nextDouble() - 1.f);
+        }
+        
+        /* Smooth random */
+        randomSmoothed[channelIndex] = random_alpha * (randomSmoothed[channelIndex] - randomPosition[channelIndex])
+            + randomPosition[channelIndex];
+        
+        return std::clamp (positionSmoothed[channelIndex] + randomSmoothed[channelIndex], (double) 1, (double) (size - 3));
     }
     
     inline double sin_lfo (const double t) {

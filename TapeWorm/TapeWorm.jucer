@@ -2,8 +2,8 @@
 
 <JUCERPROJECT id="vQAyzX" name="TapeWorm" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="../perfetto/sdk"
-              defines="PERFETTO=0" version="0.0.1" companyName="Spice Chateau DSP"
-              pluginManufacturerCode="Spch" pluginCode="Tape" pluginVST3Category="Modulation">
+              defines="PERFETTO=0" version="0.0.1" companyName="Worm Techniques"
+              pluginManufacturerCode="Worm" pluginCode="Tape" pluginVST3Category="Modulation">
   <MAINGROUP id="wehzg8" name="TapeWorm">
     <GROUP id="{EDB93C4E-487B-722B-7FB9-45333E33BA4D}" name="Source">
       <GROUP id="{8D49FF36-5E35-91B0-CDC1-B89E8AA61FFE}" name="Utility">
